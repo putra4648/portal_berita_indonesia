@@ -7,8 +7,11 @@ environment:
   sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
+  dio: ^4.0.0
+  dio_cookie_manager: ^2.0.0
   flutter:
     sdk: flutter
+  mocktail: ^0.1.4
 
 dev_dependencies:
   flutter_test:
