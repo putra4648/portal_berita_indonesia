@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
           elevation: 0,
         ),
         extendBodyBehindAppBar: true,
-        drawer: Drawer(),
+        drawer: const Drawer(),
         body: Column(
           children: [
             Container(
