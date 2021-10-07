@@ -23,9 +23,15 @@ class Home extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Colors.red,
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(20),
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white12, BlendMode.lighten),
+                    image:
+                        NetworkImage('https://picsum.photos/seed/picsum/600'),
                   ),
                 ),
                 padding:
@@ -34,14 +40,17 @@ class Home extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Chip(
+                    Chip(
                       label: Text('News of the Day'),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
                         'Deserunt amet incididunt eiusmod nisi minim sint mollit quis eu in qui cupidatat.',
-                        style: Theme.of(context).textTheme.headline5,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            ?.copyWith(fontWeight: FontWeight.w600),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -65,13 +74,16 @@ class Home extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Breaking News',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              ?.copyWith(fontWeight: FontWeight.w500),
                         ),
                         TextButton(onPressed: () {}, child: const Text('More'))
                       ],
@@ -91,12 +103,14 @@ class Home extends StatelessWidget {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
-                                    color: Colors.red,
+                                    image: const DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                          'https://picsum.photos/seed/picsum/600/300'),
+                                    ),
                                   ),
-                                  clipBehavior: Clip.antiAlias,
                                   width: double.infinity,
-                                  margin: const EdgeInsets.all(10),
-                                  child: Text('Gak ada kabar'),
+                                  margin: const EdgeInsets.all(15),
                                 ),
                               ),
                               ListTile(
