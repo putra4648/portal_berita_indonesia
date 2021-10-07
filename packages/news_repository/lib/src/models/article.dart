@@ -14,16 +14,16 @@ class Article {
   });
 
   /// Function will convert JSON map and return this class
-  factory Article.fromMap(Map<String, dynamic> map) {
+  factory Article.fromJson(Map<String, dynamic> map) {
     return Article(
-      source: Source.fromMap(map['source'] as Map<String, Object?>),
-      author: map['author'] as String,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      url: map['url'] as String,
-      urlImage: map['urlImage'] as String,
-      publishAt: map['publishAt'] as String,
-      content: map['content'] as String,
+      source: Source.fromJson(map['source'] as Map<String, Object?>),
+      author: map['author'] as String?,
+      title: map['title'] as String?,
+      description: map['description'] as String?,
+      url: map['url'] as String?,
+      urlImage: map['urlImage'] as String?,
+      publishAt: map['publishAt'] as String?,
+      content: map['content'] as String?,
     );
   }
 
@@ -77,10 +77,10 @@ class Source {
   });
 
   /// Function will convert JSON map and return this class
-  factory Source.fromMap(Map<String, dynamic> map) {
+  factory Source.fromJson(Map<String, dynamic> map) {
     return Source(
-      id: map['id'] as int,
-      name: map['name'] as String,
+      id: map['id'] as int?,
+      name: map['name'] as String?,
     );
   }
 
