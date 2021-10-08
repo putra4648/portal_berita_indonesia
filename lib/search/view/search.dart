@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
+import 'package:portal_berita_indonesia/search/widgets/content.dart';
+import 'package:portal_berita_indonesia/search/widgets/custom_tab_bar.dart';
+import 'package:portal_berita_indonesia/search/widgets/label.dart';
+import 'package:portal_berita_indonesia/search/widgets/search_bar.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -53,176 +57,12 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Temukan',
-                      style: textTheme.headline3?.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'Berita favoritmu di sini',
-                      style: textTheme.subtitle1,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade100,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Padding(
-                      padding: EdgeInsetsDirectional.only(start: 12),
-                      child: Icon(Icons.search_outlined),
-                    ),
-                    suffixIcon: InkWell(
-                      onTap: () {},
-                      child: const Icon(Icons.settings_input_composite),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: 'Cari beritamu',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-              Builder(builder: (context) {
-                return TabBar(
-                  controller: _tabController,
-                  isScrollable: true,
-                  indicatorColor: Colors.black,
-                  labelStyle: textTheme.headline6
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                  physics: const BouncingScrollPhysics(),
-                  tabs: CategoryType.values
-                      .map((category) => Tab(
-                            child: Text(mappingCategoryToString(category)[0]
-                                    .toUpperCase() +
-                                mappingCategoryToString(category).substring(1)),
-                          ))
-                      .toList(),
-                  onTap: (index) {
-                    context.read<NewsCategoryBloc>().add(NewsCategoryChanged(
-                        countryCode: CountryCode.id,
-                        categoryType: CategoryType.values[index]));
-                    debugPrint(
-                        mappingCategoryToString(CategoryType.values[index]));
-                  },
-                );
-              }),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  physics: const BouncingScrollPhysics(),
-                  children: CategoryType.values
-                      .map(
-                        (category) =>
-                            BlocBuilder<NewsCategoryBloc, NewsCategoryState>(
-                          builder: (context, state) {
-                            if (state is NewsCategoryLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.black,
-                                ),
-                              );
-                            } else if (state is NewsCategoryLoadedSuccess) {
-                              return ListView.builder(
-                                itemCount: state.categoryArticles.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {},
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child:
-                                                  state.categoryArticles[index]
-                                                              .urlImage !=
-                                                          null
-                                                      ? Image.network(
-                                                          state
-                                                              .categoryArticles[
-                                                                  index]
-                                                              .urlImage!,
-                                                          fit: BoxFit.fill,
-                                                        )
-                                                      : null,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                state.categoryArticles[index]
-                                                        .title ??
-                                                    '',
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: textTheme.subtitle1
-                                                    ?.copyWith(
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              Chip(
-                                                avatar: const Icon(Icons.timer),
-                                                elevation: 0,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                label: Text(
-                                                  durationTimer(state
-                                                      .categoryArticles[index]
-                                                      .publishedAt),
-                                                  style: textTheme.caption,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            } else if (state is NewsCategoryFailed) {
-                              return Center(
-                                child: Text(state.error),
-                              );
-                            } else {
-                              return const SizedBox.shrink();
-                            }
-                          },
-                        ),
-                      )
-                      .toList(),
-                ),
+              BuildLabel(textTheme: textTheme),
+              const SearchBar(),
+              CustomTabBar(tabController: _tabController, textTheme: textTheme),
+              TabBarViewContent(
+                tabController: _tabController,
+                textTheme: textTheme,
               )
             ],
           ),
