@@ -1,0 +1,107 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_repository/news_repository.dart';
+import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
+
+class TabBarViewContent extends StatelessWidget {
+  const TabBarViewContent({
+    Key? key,
+    required TabController tabController,
+    required this.textTheme,
+  })  : _tabController = tabController,
+        super(key: key);
+
+  final TabController _tabController;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: TabBarView(
+        controller: _tabController,
+        physics: const BouncingScrollPhysics(),
+        children: CategoryType.values
+            .map<Widget>(
+              (category) => BlocBuilder<NewsCategoryBloc, NewsCategoryState>(
+                builder: (context, state) {
+                  if (state is NewsCategoryLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    );
+                  } else if (state is NewsCategoryLoadedSuccess) {
+                    return ListView.builder(
+                      itemCount: state.categoryArticles.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {},
+                          borderRadius: BorderRadius.circular(10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: state.categoryArticles[index]
+                                                .urlImage !=
+                                            null
+                                        ? Image.network(
+                                            state.categoryArticles[index]
+                                                .urlImage!,
+                                            fit: BoxFit.fill,
+                                          )
+                                        : null,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.categoryArticles[index].title ?? '',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: textTheme.subtitle1?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Chip(
+                                      avatar: const Icon(Icons.timer),
+                                      elevation: 0,
+                                      backgroundColor: Colors.transparent,
+                                      label: Text(
+                                        durationTimer(state
+                                            .categoryArticles[index]
+                                            .publishedAt),
+                                        style: textTheme.caption,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else if (state is NewsCategoryFailed) {
+                    return Center(
+                      child: Text(state.error),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}

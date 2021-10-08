@@ -4,7 +4,7 @@
 enum CategoryType {
   business,
   entertainment,
-  general,
+  // general,
   health,
   science,
   sports,

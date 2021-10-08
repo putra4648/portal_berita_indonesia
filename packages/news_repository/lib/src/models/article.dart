@@ -9,7 +9,7 @@ class Article {
     this.description,
     this.url,
     this.urlImage,
-    this.publishAt,
+    this.publishedAt,
     this.content,
   });
 
@@ -21,8 +21,8 @@ class Article {
       title: map['title'] as String?,
       description: map['description'] as String?,
       url: map['url'] as String?,
-      urlImage: map['urlImage'] as String?,
-      publishAt: map['publishAt'] as String?,
+      urlImage: map['urlToImage'] as String?,
+      publishedAt: map['publishedAt'] as String?,
       content: map['content'] as String?,
     );
   }
@@ -46,7 +46,7 @@ class Article {
   final String? urlImage;
 
   /// Date of this article published
-  final String? publishAt;
+  final String? publishedAt;
 
   /// Conten of this article
   /// but still a characters length existed
@@ -62,9 +62,15 @@ class Article {
       'description': description,
       'url': url,
       'urlImage': urlImage,
-      'publishAt': publishAt,
+      'publishAt': publishedAt,
       'content': content,
     };
+  }
+
+  @override
+  String toString() {
+    // ignore: lines_longer_than_80_chars
+    return 'Article(source: $source, author: $author, title: $title, description: $description, url: $url, urlImage: $urlImage, publishAt: $publishedAt, content: $content)';
   }
 }
 
@@ -72,20 +78,15 @@ class Article {
 class Source {
   /// Constructor
   const Source({
-    this.id,
     this.name,
   });
 
   /// Function will convert JSON map and return this class
   factory Source.fromJson(Map<String, dynamic> map) {
     return Source(
-      id: map['id'] as int?,
       name: map['name'] as String?,
     );
   }
-
-  /// Id of Source
-  final int? id;
 
   /// Name of source
   final String? name;
@@ -94,7 +95,6 @@ class Source {
   /// if necessarry
   Map<String, Object?> toMap() {
     return {
-      'id': id,
       'name': name,
     };
   }

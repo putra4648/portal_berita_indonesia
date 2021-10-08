@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^7.2.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^7.3.0
@@ -15,6 +16,8 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.0.0+2
   intl: ^0.17.0
+  news_repository:
+    path: packages/news_repository
 
 dev_dependencies:
   bloc_test: ^8.2.0
