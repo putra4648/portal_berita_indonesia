@@ -10,7 +10,7 @@ import 'package:news_repository/src/models/models.dart';
 abstract class NewsTopHeadlines<T extends Article> {
   /// Return topHeadlines from [Future<List<Article>>]
   Future<List<T>?> getTopHeadlineNews(
-      String keyword, CountryCode? countryCode, CategoryType? category);
+      [CountryCode? countryCode, CategoryType? category, String keyword = '']);
 }
 
 /// An interface to make request about News with
@@ -56,13 +56,16 @@ class NewsInterface extends HttpClientInterface
 
   @override
   Future<List<Article>?> getTopHeadlineNews(
-      String keyword, CountryCode? countryCode, CategoryType? category) async {
+      [CountryCode? countryCode,
+      CategoryType? category,
+      String keyword = '']) async {
     var _countryCode = '';
     var _category = '';
 
     if (countryCode != null) {
       _countryCode = mappingCountryToString(countryCode);
-    } else if (category != null) {
+    }
+    if (category != null) {
       _category = mappingCategoryToString(category);
     }
 

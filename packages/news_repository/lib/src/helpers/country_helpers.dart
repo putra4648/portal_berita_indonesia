@@ -1,7 +1,7 @@
 import 'package:news_repository/src/enums/enums.dart';
 
 /// Return [String] country code based on [countryCode] args
-String mappingCountryToString(CountryCode countryCode) {
+String mappingCountryToString(CountryCode? countryCode) {
   switch (countryCode) {
     case CountryCode.sg:
       return 'sg';
@@ -13,5 +13,7 @@ String mappingCountryToString(CountryCode countryCode) {
       return 'ph';
     case CountryCode.my:
       return 'my';
+    default:
+      return '';
   }
 }
