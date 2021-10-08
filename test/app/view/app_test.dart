@@ -7,7 +7,7 @@ void main() {
   group('App', () {
     testWidgets('renders main App', (tester) async {
       await tester.pumpWidget(App(newsRepository: NewsRepository()));
-      expect(find.byType(Home), findsOneWidget);
+      expect(find.byWidget(const Home()), findsOneWidget);
     });
   });
 }
