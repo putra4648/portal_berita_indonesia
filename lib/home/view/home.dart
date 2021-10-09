@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
-import 'package:portal_berita_indonesia/home/widgets/breaking_news_content.dart';
-import 'package:portal_berita_indonesia/home/widgets/breaking_news_header.dart';
+import 'package:portal_berita_indonesia/home/widgets/news_content.dart';
+import 'package:portal_berita_indonesia/home/widgets/news_header.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -24,7 +24,6 @@ class Home extends StatelessWidget {
             },
             icon: const Icon(
               Icons.menu,
-              color: Colors.white,
             ),
           ),
           backgroundColor: Colors.transparent,
