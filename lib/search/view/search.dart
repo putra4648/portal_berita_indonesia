@@ -47,7 +47,6 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
             },
             icon: const Icon(
               Icons.menu,
-              color: Colors.black,
             ),
           ),
           elevation: 0,
