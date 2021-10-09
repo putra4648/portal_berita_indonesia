@@ -35,23 +35,44 @@ class _AppState extends State<App> {
       create: (_) => widget._newsRepository,
       child: MaterialApp(
         title: 'Portal Berita',
-        theme: ThemeData(
-          primaryColor: Colors.white,
-          canvasColor: Colors.white,
-          visualDensity: VisualDensity.compact,
-          colorScheme: const ColorScheme.light(
-            primary: Colors.white,
-          ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            selectedItemColor: Colors.black,
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              primary: Colors.black,
-              padding: EdgeInsets.zero,
+        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light(
+            // primaryColor: Colors.white,
+            // canvasColor: Colors.white,
+            // visualDensity: VisualDensity.compact,
+            // colorScheme: const ColorScheme.light(
+            //   primary: Colors.white,
+            // ),
+            // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            //   selectedItemColor: Colors.black,
+            // ),
+            // textButtonTheme: TextButtonThemeData(
+            //   style: TextButton.styleFrom(
+            //     primary: Colors.black,
+            //     padding: EdgeInsets.zero,
+            //   ),
+            // ),
+            // inputDecorationTheme: InputDecorationTheme(
+            //   filled: true,
+            //   fillColor: Colors.grey.shade100,
+            //   focusedBorder: OutlineInputBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //     borderSide: BorderSide.none,
+            //   ),
+            //   border: OutlineInputBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //     borderSide: BorderSide.none,
+            //   ),
+            //   enabledBorder: OutlineInputBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //     borderSide: BorderSide.none,
+            //   ),
+            //   errorBorder: OutlineInputBorder(
+            //     borderRadius: BorderRadius.circular(10),
+            //     borderSide: BorderSide.none,
+            //   ),
+            // ),
             ),
-          ),
-        ),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
