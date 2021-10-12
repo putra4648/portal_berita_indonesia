@@ -9,6 +9,7 @@ environment:
 dependencies:
   dio: ^4.0.0
   dio_cookie_manager: ^2.0.0
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
   mocktail: ^0.1.4

@@ -5,6 +5,7 @@ import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
 import 'package:portal_berita_indonesia/home/widgets/news_content.dart';
 import 'package:portal_berita_indonesia/home/widgets/news_header.dart';
+import 'package:portal_berita_indonesia/saved/bloc/saved_news_bloc.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,10 +13,17 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider<BreakingNewsBloc>(
-      create: (_) =>
-          BreakingNewsBloc(newsRepository: context.read<NewsRepository>())
-            ..add(BreakingNewsFetched()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<BreakingNewsBloc>(
+          create: (_) =>
+              BreakingNewsBloc(newsRepository: context.read<NewsRepository>())
+                ..add(BreakingNewsFetched()),
+        ),
+        BlocProvider(
+          create: (_) => SavedNewsBloc(),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(

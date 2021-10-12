@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
+import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 import 'package:portal_berita_indonesia/search/widgets/content.dart';
 import 'package:portal_berita_indonesia/search/widgets/custom_tab_bar.dart';
 import 'package:portal_berita_indonesia/search/widgets/label.dart';
@@ -33,12 +34,20 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider<NewsCategoryBloc>(
-      create: (_) =>
-          NewsCategoryBloc(newsRepository: context.read<NewsRepository>())
-            ..add(const NewsCategoryChanged(
-                countryCode: CountryCode.id,
-                categoryType: CategoryType.business)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NewsCategoryBloc>(
+          create: (_) =>
+              NewsCategoryBloc(newsRepository: context.read<NewsRepository>())
+                ..add(const NewsCategoryChanged(
+                    countryCode: CountryCode.id,
+                    categoryType: CategoryType.business)),
+        ),
+        BlocProvider<SearchNewsBloc>(
+          create: (_) =>
+              SearchNewsBloc(newsRepository: context.read<NewsRepository>()),
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(

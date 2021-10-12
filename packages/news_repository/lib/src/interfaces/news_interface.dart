@@ -42,11 +42,11 @@ class NewsInterface extends HttpClientInterface
   Future<List<Article>?> getSearchNews(String args) async {
     final _argsEncoded = Uri.encodeQueryComponent(args);
     try {
-      final _response = await super.dio.get<Map>('/everything/q=$_argsEncoded');
+      final _response = await super.dio.get<Map>('/everything?q=$_argsEncoded');
 
       final _result = List<Article>.from((_response.data!['articles'] as List)
           .cast<Map<String, dynamic>>()
-          .map<Article>((map) => Article.fromJson(map)));
+          .map<Article>((map) => Article.fromMap(map)));
       return _result;
     } on DioError catch (e) {
       debugPrint(e.message);
@@ -74,7 +74,7 @@ class NewsInterface extends HttpClientInterface
           '/top-headlines?q=$keyword&category=$_category&country=$_countryCode');
       final _result = List<Article>.from((_response.data!['articles'] as List)
           .cast<Map<String, dynamic>>()
-          .map<Article>((map) => Article.fromJson(map)));
+          .map<Article>((map) => Article.fromMap(map)));
       return _result;
     } on DioError catch (e) {
       debugPrint(e.message);

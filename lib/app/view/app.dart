@@ -12,7 +12,7 @@ import 'package:news_repository/news_repository.dart';
 
 import 'package:portal_berita_indonesia/home/home.dart';
 import 'package:portal_berita_indonesia/l10n/l10n.dart';
-import 'package:portal_berita_indonesia/profile/profile.dart';
+import 'package:portal_berita_indonesia/saved/saved.dart';
 import 'package:portal_berita_indonesia/search/search.dart';
 
 class App extends StatefulWidget {
@@ -102,10 +102,11 @@ class _AppState extends State<App> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
               BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.bookmark_border), label: ''),
             ],
           ),
-          body: [const Home(), const Search(), const Profile()]
+          body: [const Home(), const Search(), const Saved()]
               .elementAt(_currentIndex),
         ),
       ),

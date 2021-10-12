@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
+import 'package:portal_berita_indonesia/saved/bloc/saved_news_bloc.dart';
 
 class BreakingNewsContent extends StatelessWidget {
   const BreakingNewsContent({
@@ -119,6 +120,13 @@ class NewsContent extends StatelessWidget {
                       const SizedBox(height: 5),
                       Text(_filteredBreakingNews[index].author ?? '')
                     ],
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      context.read<SavedNewsBloc>().add(SavedNewsAdded(
+                          article: _filteredBreakingNews[index]));
+                    },
+                    icon: const Icon(Icons.bookmark_border),
                   ),
                 ),
               ],

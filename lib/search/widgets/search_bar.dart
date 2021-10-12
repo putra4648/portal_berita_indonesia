@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({
@@ -29,13 +31,15 @@ class _SearchBarState extends State<SearchBar> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextField(
         controller: _searchTextController,
-        onSubmitted: (value) async {
-          final search = await showSearch<String>(
+        onSubmitted: (value) {
+          context
+              .read<SearchNewsBloc>()
+              .add(SearchNewsQueryChanged(query: value));
+          showSearch<String>(
             context: context,
             query: value,
-            delegate: CustomSearchDelegate(),
+            delegate: CustomSearchDelegate(context.read<SearchNewsBloc>()),
           );
-          debugPrint(search.toString());
         },
         cursorColor: Colors.black,
         decoration: InputDecoration(
@@ -70,6 +74,9 @@ class _SearchBarState extends State<SearchBar> {
 }
 
 class CustomSearchDelegate extends SearchDelegate<String> {
+  CustomSearchDelegate(this.seachNewsbloc);
+
+  final Bloc<SearchNewsEvent, SearchNewsState> seachNewsbloc;
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -94,12 +101,31 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Column(
-      children: List.generate(
-          query.length,
-          (index) => ListTile(
-                title: Text('Index ke $index'),
-              )),
+    seachNewsbloc.add(SearchNewsQueryChanged(query: query));
+    return BlocBuilder(
+      bloc: seachNewsbloc,
+      builder: (BuildContext context, SearchNewsState state) {
+        if (state is SearchNewsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is SearchNewsLoadedSuccess) {
+          return ListView.builder(
+            itemCount: state.newsResults.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(state.newsResults[index].title ?? ''),
+              );
+            },
+          );
+        } else if (state is SearchNewsFailed) {
+          return Center(
+            child: Text(state.error),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
     );
   }
 
