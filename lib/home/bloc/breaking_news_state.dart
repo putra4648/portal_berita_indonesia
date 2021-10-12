@@ -1,27 +1,28 @@
 part of 'breaking_news_bloc.dart';
 
-abstract class BreakingNewsState extends Equatable {
+class BreakingNewsState extends Equatable {
   const BreakingNewsState({
     this.breakingNewsArticles = const [],
     this.error = '',
+    this.isLoading = true,
   });
 
   final String error;
+  final bool isLoading;
   final List<Article> breakingNewsArticles;
 
   @override
-  List<Object> get props => [error, breakingNewsArticles];
-}
+  List<Object> get props => [error, isLoading, breakingNewsArticles];
 
-class BreakingNewsInitial extends BreakingNewsState {}
-
-class BreakingNewsLoading extends BreakingNewsState {}
-
-class BreakingNewsLoadedSuccess extends BreakingNewsState {
-  const BreakingNewsLoadedSuccess({required List<Article> breakingNewsArticles})
-      : super(breakingNewsArticles: breakingNewsArticles);
-}
-
-class BreakingNewsFailed extends BreakingNewsState {
-  const BreakingNewsFailed({required String error}) : super(error: error);
+  BreakingNewsState copyWith({
+    String? error,
+    bool? isLoading,
+    List<Article>? breakingNewsArticles,
+  }) {
+    return BreakingNewsState(
+      error: error ?? this.error,
+      isLoading: isLoading ?? this.isLoading,
+      breakingNewsArticles: breakingNewsArticles ?? this.breakingNewsArticles,
+    );
+  }
 }

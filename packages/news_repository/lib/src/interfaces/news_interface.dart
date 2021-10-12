@@ -9,8 +9,13 @@ import 'package:news_repository/src/models/models.dart';
 /// A class to make request TopHeadlines
 abstract class NewsTopHeadlines<T extends Article> {
   /// Return topHeadlines from [Future<List<Article>>]
-  Future<List<T>?> getTopHeadlineNews(
-      [CountryCode? countryCode, CategoryType? category, String keyword = '']);
+  Future<List<T>?> getTopHeadlineNews({
+    CountryCode? countryCode,
+    CategoryType? category,
+    String keyword = '',
+    int pageSize = 20,
+    int page = 1,
+  });
 }
 
 /// An interface to make request about News with
@@ -55,10 +60,13 @@ class NewsInterface extends HttpClientInterface
   }
 
   @override
-  Future<List<Article>?> getTopHeadlineNews(
-      [CountryCode? countryCode,
-      CategoryType? category,
-      String keyword = '']) async {
+  Future<List<Article>?> getTopHeadlineNews({
+    CountryCode? countryCode,
+    CategoryType? category,
+    String keyword = '',
+    int pageSize = 20,
+    int page = 1,
+  }) async {
     var _countryCode = '';
     var _category = '';
 
@@ -71,7 +79,7 @@ class NewsInterface extends HttpClientInterface
 
     try {
       final _response = await super.dio.get<Map>(
-          '/top-headlines?q=$keyword&category=$_category&country=$_countryCode');
+          '/top-headlines?q=$keyword&category=$_category&country=$_countryCode&pageSize=$pageSize&page=$page');
       final _result = List<Article>.from((_response.data!['articles'] as List)
           .cast<Map<String, dynamic>>()
           .map<Article>((map) => Article.fromMap(map)));

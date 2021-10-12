@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
-import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 import 'package:portal_berita_indonesia/search/widgets/content.dart';
 import 'package:portal_berita_indonesia/search/widgets/custom_tab_bar.dart';
 import 'package:portal_berita_indonesia/search/widgets/label.dart';
@@ -21,6 +20,8 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    context.read<NewsCategoryBloc>().add(const NewsCategoryChanged(
+        countryCode: CountryCode.id, categoryType: CategoryType.business));
     _tabController =
         TabController(length: CategoryType.values.length, vsync: this);
   }
@@ -34,46 +35,31 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<NewsCategoryBloc>(
-          create: (_) =>
-              NewsCategoryBloc(newsRepository: context.read<NewsRepository>())
-                ..add(const NewsCategoryChanged(
-                    countryCode: CountryCode.id,
-                    categoryType: CategoryType.business)),
-        ),
-        BlocProvider<SearchNewsBloc>(
-          create: (_) =>
-              SearchNewsBloc(newsRepository: context.read<NewsRepository>()),
-        ),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(
+            Icons.menu,
           ),
-          elevation: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BuildLabel(textTheme: textTheme),
-              const SearchBar(),
-              CustomTabBar(tabController: _tabController, textTheme: textTheme),
-              TabBarViewContent(
-                tabController: _tabController,
-                textTheme: textTheme,
-              )
-            ],
-          ),
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BuildLabel(textTheme: textTheme),
+            const SearchBar(),
+            CustomTabBar(tabController: _tabController, textTheme: textTheme),
+            TabBarViewContent(
+              tabController: _tabController,
+              textTheme: textTheme,
+            )
+          ],
         ),
       ),
     );

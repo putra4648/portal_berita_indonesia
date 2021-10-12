@@ -10,11 +10,23 @@ part 'saved_news_state.dart';
 class SavedNewsBloc extends HydratedBloc<SavedNewsEvent, SavedNewsState> {
   SavedNewsBloc() : super(const SavedNewsState()) {
     on<SavedNewsEvent>((event, emit) {
-      if (event is SavedNewsAdded) {
+      if (event is SavedNewsLoaded) {
+        final currentSavedArticles = List<Article>.from(state.savedArticles);
+        emit(state.copyWith(savedArticles: currentSavedArticles));
+      } else if (event is SavedNewsAdded) {
         final currentSavedArticles = List<Article>.from(state.savedArticles)
           ..add(event.article);
 
-        emit(SavedNewsState(savedArticles: currentSavedArticles));
+        emit(state.copyWith(savedArticles: currentSavedArticles));
+      } else if (event is SavedNewsDeleted) {
+        try {
+          final currentDeletedArticles = List<Article>.from(state.savedArticles)
+            ..removeWhere(
+                (article) => article.publishedAt == event.article.publishedAt);
+          emit(state.copyWith(savedArticles: currentDeletedArticles));
+        } catch (e) {
+          emit(state.copyWith(error: e.toString()));
+        }
       }
     });
   }

@@ -1,21 +1,10 @@
 part of 'saved_news_bloc.dart';
 
 class SavedNewsState extends Equatable {
-  const SavedNewsState({this.savedArticles = const <Article>[]});
+  const SavedNewsState(
+      {this.savedArticles = const <Article>[], this.error = ''});
 
-  final List<Article> savedArticles;
-
-  @override
-  List<Object> get props => [savedArticles];
-
-  SavedNewsState copyWith({
-    List<Article>? savedArticles,
-  }) {
-    return SavedNewsState(
-      savedArticles: savedArticles ?? this.savedArticles,
-    );
-  }
-
+  /// Mapping to class
   factory SavedNewsState.fromMap(Map<String, dynamic> map) {
     return SavedNewsState(
       savedArticles: map['savedArticles'] != null
@@ -26,8 +15,25 @@ class SavedNewsState extends Equatable {
     );
   }
 
+  /// Converting fromMap method to
   factory SavedNewsState.fromJson(String source) =>
       SavedNewsState.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  final List<Article> savedArticles;
+  final String error;
+
+  @override
+  List<Object> get props => [savedArticles, error];
+
+  SavedNewsState copyWith({
+    List<Article>? savedArticles,
+    String? error,
+  }) {
+    return SavedNewsState(
+      savedArticles: savedArticles ?? this.savedArticles,
+      error: error ?? this.error,
+    );
+  }
 
   String toJson() => json.encode(toMap());
 

@@ -8,22 +8,22 @@ part 'breaking_news_state.dart';
 class BreakingNewsBloc extends Bloc<BreakingNewsEvent, BreakingNewsState> {
   BreakingNewsBloc({required NewsRepository newsRepository})
       : _newsRepository = newsRepository,
-        super(BreakingNewsInitial()) {
+        super(const BreakingNewsState()) {
     on<BreakingNewsEvent>((event, emit) async {
       if (event is BreakingNewsFetched) {
-        emit(BreakingNewsLoading());
         try {
-          final _breakingNewsResult =
-              await _newsRepository.getTopHeadlineNews(CountryCode.id);
+          final _breakingNewsResult = await _newsRepository.getTopHeadlineNews(
+              countryCode: CountryCode.id);
           if (_breakingNewsResult != null) {
-            emit(BreakingNewsLoadedSuccess(
+            emit(state.copyWith(
+                isLoading: !state.isLoading,
                 breakingNewsArticles: List<Article>.from(_breakingNewsResult)));
           } else {
-            emit(const BreakingNewsLoadedSuccess(
-                breakingNewsArticles: <Article>[]));
+            return;
           }
         } catch (e) {
-          emit(BreakingNewsFailed(error: e.toString()));
+          emit(
+              state.copyWith(isLoading: !state.isLoading, error: e.toString()));
         }
       }
     });

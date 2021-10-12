@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:portal_berita_indonesia/detail/view/detail.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
-import 'package:portal_berita_indonesia/saved/bloc/saved_news_bloc.dart';
 
 class BreakingNewsContent extends StatelessWidget {
   const BreakingNewsContent({
@@ -28,23 +28,22 @@ class BreakingNewsContent extends StatelessWidget {
           Expanded(
             child: BlocBuilder<BreakingNewsBloc, BreakingNewsState>(
               builder: (context, state) {
-                if (state is BreakingNewsLoading) {
+                if (state.error.isNotEmpty) {
+                  return const SizedBox.shrink();
+                }
+
+                /// If loading is true and doesnt have error
+                if (state.isLoading && state.error.isEmpty) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is BreakingNewsLoadedSuccess) {
+                } else {
                   final _filteredBreakingNews =
                       state.breakingNewsArticles.getRange(1, 5).toList();
                   return NewsContent(
                     filteredBreakingNews: _filteredBreakingNews,
                     textTheme: textTheme,
                   );
-                } else if (state is BreakingNewsFailed) {
-                  return Center(
-                    child: Text(state.error),
-                  );
-                } else {
-                  return const SizedBox.shrink();
                 }
               },
             ),
@@ -77,7 +76,18 @@ class NewsContent extends StatelessWidget {
           maxWidth: MediaQuery.of(context).size.width * 0.8,
           child: InkWell(
             borderRadius: BorderRadius.circular(30),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push<Widget>(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Detail(
+                      article: _filteredBreakingNews[index],
+                      page: index++,
+                    );
+                  },
+                ),
+              );
+            },
             child: Column(
               children: [
                 /// News Image
@@ -120,13 +130,6 @@ class NewsContent extends StatelessWidget {
                       const SizedBox(height: 5),
                       Text(_filteredBreakingNews[index].author ?? '')
                     ],
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      context.read<SavedNewsBloc>().add(SavedNewsAdded(
-                          article: _filteredBreakingNews[index]));
-                    },
-                    icon: const Icon(Icons.bookmark_border),
                   ),
                 ),
               ],

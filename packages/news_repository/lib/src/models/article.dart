@@ -53,7 +53,7 @@ class Article extends Equatable {
   /// Image url of this article
   final String? urlImage;
 
-  /// Date of this article published
+  /// Date of this article published with ISO8601
   final String? publishedAt;
 
   /// Conten of this article
@@ -93,7 +93,7 @@ class Article extends Equatable {
 }
 
 /// Sub-class Article for Source
-class Source {
+class Source extends Equatable {
   /// Constructor
   const Source({
     this.name,
@@ -122,4 +122,7 @@ class Source {
 
   /// Override json to string
   String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props => [name];
 }

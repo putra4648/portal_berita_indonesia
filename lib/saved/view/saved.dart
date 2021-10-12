@@ -12,25 +12,36 @@ class Saved extends StatefulWidget {
 class _SavedState extends State<Saved> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<SavedNewsBloc, SavedNewsState>(
-        bloc: SavedNewsBloc(),
-        builder: (context, state) {
-          if (state.savedArticles.isEmpty) {
-            return const Center(
-              child: Text('Belum ada data'),
-            );
-          }
-          return ListView.builder(
-            itemCount: state.savedArticles.length,
-            itemBuilder: (context, index) {
-              final article = state.savedArticles[index];
-              return ListTile(
-                title: Text(article.title ?? ''),
+    return BlocProvider(
+      create: (_) => SavedNewsBloc(),
+      child: Scaffold(
+        body: BlocBuilder<SavedNewsBloc, SavedNewsState>(
+          builder: (context, state) {
+            if (state.savedArticles.isEmpty) {
+              return const Center(
+                child: Text('Belum ada data'),
               );
-            },
-          );
-        },
+            }
+            return ListView.builder(
+              itemCount: state.savedArticles.length,
+              itemBuilder: (context, index) {
+                final article = state.savedArticles[index];
+                return ListTile(
+                  title: Text(article.title ?? ''),
+                  trailing: Builder(builder: (context) {
+                    return IconButton(
+                        onPressed: () {
+                          context
+                              .read<SavedNewsBloc>()
+                              .add(SavedNewsDeleted(article: article));
+                        },
+                        icon: const Icon(Icons.delete));
+                  }),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

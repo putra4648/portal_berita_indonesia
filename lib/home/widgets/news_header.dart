@@ -18,23 +18,23 @@ class BreakingNewsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: BlocBuilder<BreakingNewsBloc, BreakingNewsState>(
+        buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
-          if (state is BreakingNewsLoading) {
-            return Container(
-              color: Colors.black,
-            );
-          } else if (state is BreakingNewsLoadedSuccess) {
-            final _filterSingleBreakingNews = state.breakingNewsArticles.first;
-            return NewsHeaderContent(
-              filterSingleBreakingNews: _filterSingleBreakingNews,
-              textTheme: textTheme,
-            );
-          } else if (state is BreakingNewsFailed) {
-            return Center(
-              child: Text(state.error),
+          if (state.error.isNotEmpty) {
+            return const SizedBox.shrink();
+          }
+
+          /// If loading is true and doesnt have error
+          if (state.isLoading && state.error.isEmpty) {
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           } else {
-            return const SizedBox.shrink();
+            final _filteredBreakingNews = state.breakingNewsArticles.first;
+            return NewsHeaderContent(
+              filterSingleBreakingNews: _filteredBreakingNews,
+              textTheme: textTheme,
+            );
           }
         },
       ),
