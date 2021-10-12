@@ -30,9 +30,9 @@ class Article extends Equatable {
       content: map['content'] as String?,
     );
   }
-
+  /// Convenience way to convert JSON object to this class
   /// Converting json to this class within fromMap function
-  /// return [Article.fromMap()] 
+  /// return [Article] 
   factory Article.fromJson(String source) =>
       Article.fromMap(json.decode(source) as Map<String, dynamic>);
 
@@ -74,6 +74,7 @@ class Article extends Equatable {
     ];
   }
 
+  /// Convenience way to send data with JSON object
   /// Encoded JSON map from [toMap()] function
   /// return [String] 
   String toJson() => json.encode(toMap());
@@ -101,8 +102,8 @@ class Source extends Equatable {
     this.name,
   });
 
-  /// Converting json to this class
-  /// within fromMap function 
+  /// Convenience way to convert JSON object to this class
+  /// Converting json to this class within fromMap function 
   /// return [Source]
   factory Source.fromJson(String source) =>
       Source.fromMap(json.decode(source) as Map<String, Object?>);
@@ -118,16 +119,19 @@ class Source extends Equatable {
   /// Name of source
   final String? name;
 
+  @override
+  List<Object?> get props => [name];
+
+  /// Convenience way to send data with JSON object
+  /// Encode json from [toMap()] 
+  /// return [String]
+  String toJson() => json.encode(toMap());
+
   /// Mapping this class property to map and will be encoded
+  /// return [Map<String, Object?>]
   Map<String, Object?> toMap() {
     return {
       'name': name,
     };
   }
-
-  /// Encode json from [toMap()] to [String]
-  String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props => [name];
 }
