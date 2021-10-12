@@ -6,11 +6,17 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:portal_berita_indonesia/app/app.dart';
 import 'package:portal_berita_indonesia/bootstrap.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   EquatableConfig.stringify = true;
-  bootstrap(() => App(newsRepository: NewsRepository()));
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory());
+  await bootstrap(() => App(newsRepository: NewsRepository()));
 }

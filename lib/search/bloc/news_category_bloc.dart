@@ -14,8 +14,9 @@ class NewsCategoryBloc extends Bloc<NewsCategoryEvent, NewsCategoryState> {
       if (event is NewsCategoryChanged) {
         emit(NewsCategoryLoading());
         try {
-          final _articleCategoryResult = await _newsRepository
-              .getTopHeadlineNews(event.countryCode, event.categoryType);
+          final _articleCategoryResult =
+              await _newsRepository.getTopHeadlineNews(
+                  countryCode: event.countryCode, category: event.categoryType);
           if (_articleCategoryResult != null) {
             emit(NewsCategoryLoadedSuccess(
                 categoryArticles: List<Article>.from(_articleCategoryResult)));

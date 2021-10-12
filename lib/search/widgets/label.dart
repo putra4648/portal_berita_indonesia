@@ -17,8 +17,7 @@ class BuildLabel extends StatelessWidget {
         children: [
           Text(
             'Temukan',
-            style: textTheme.headline3
-                ?.copyWith(color: Colors.black, fontWeight: FontWeight.bold),
+            style: textTheme.headline3?.copyWith(fontWeight: FontWeight.bold),
           ),
           Text(
             'Berita favoritmu di sini',

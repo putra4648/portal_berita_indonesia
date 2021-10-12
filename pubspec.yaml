@@ -15,9 +15,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_screenutil: ^5.0.0+2
+  hydrated_bloc: ^7.1.0
   intl: ^0.17.0
   news_repository:
     path: packages/news_repository
+  path_provider: ^2.0.5
 
 dev_dependencies:
   bloc_test: ^8.2.0

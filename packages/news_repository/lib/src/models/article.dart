@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
+
 /// A class Article will be used as model
 /// to decode JSON to this class
-class Article {
+class Article extends Equatable {
   /// Constructor
   const Article({
     this.source,
@@ -13,10 +17,10 @@ class Article {
     this.content,
   });
 
-  /// Function will convert JSON map and return this class
-  factory Article.fromJson(Map<String, dynamic> map) {
+  /// Function will convert JSON map
+  factory Article.fromMap(Map<String, dynamic> map) {
     return Article(
-      source: Source.fromJson(map['source'] as Map<String, Object?>),
+      source: Source.fromMap(map['source'] as Map<String, Object?>),
       author: map['author'] as String?,
       title: map['title'] as String?,
       description: map['description'] as String?,
@@ -26,6 +30,10 @@ class Article {
       content: map['content'] as String?,
     );
   }
+
+  /// Converting json to this class
+  factory Article.fromJson(String source) =>
+      Article.fromMap(json.decode(source) as Map<String, dynamic>);
 
   /// Source of News is provided
   final Source? source;
@@ -45,15 +53,31 @@ class Article {
   /// Image url of this article
   final String? urlImage;
 
-  /// Date of this article published
+  /// Date of this article published with ISO8601
   final String? publishedAt;
 
   /// Conten of this article
   /// but still a characters length existed
   final String? content;
 
-  /// Function used for saving data to database
-  /// if necessarry
+  @override
+  List<Object?> get props {
+    return [
+      source,
+      author,
+      title,
+      description,
+      url,
+      urlImage,
+      publishedAt,
+      content,
+    ];
+  }
+
+  /// Override this class to json string
+  String toJson() => json.encode(toMap());
+
+  /// Mapping class to saved database
   Map<String, Object?> toMap() {
     return {
       'source': source?.toMap(),
@@ -62,27 +86,25 @@ class Article {
       'description': description,
       'url': url,
       'urlImage': urlImage,
-      'publishAt': publishedAt,
+      'publishedAt': publishedAt,
       'content': content,
     };
-  }
-
-  @override
-  String toString() {
-    // ignore: lines_longer_than_80_chars
-    return 'Article(source: $source, author: $author, title: $title, description: $description, url: $url, urlImage: $urlImage, publishAt: $publishedAt, content: $content)';
   }
 }
 
 /// Sub-class Article for Source
-class Source {
+class Source extends Equatable {
   /// Constructor
   const Source({
     this.name,
   });
 
-  /// Function will convert JSON map and return this class
-  factory Source.fromJson(Map<String, dynamic> map) {
+  /// Converting json from mapping
+  factory Source.fromJson(String source) =>
+      Source.fromMap(json.decode(source) as Map<String, Object?>);
+
+  /// Converting mapping to this class
+  factory Source.fromMap(Map<String, Object?> map) {
     return Source(
       name: map['name'] as String?,
     );
@@ -91,11 +113,16 @@ class Source {
   /// Name of source
   final String? name;
 
-  /// Function used for saving data to database
-  /// if necessarry
+  /// Mapping class to map
   Map<String, Object?> toMap() {
     return {
       'name': name,
     };
   }
+
+  /// Override json to string
+  String toJson() => json.encode(toMap());
+
+  @override
+  List<Object?> get props => [name];
 }

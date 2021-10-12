@@ -20,6 +20,8 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    context.read<NewsCategoryBloc>().add(const NewsCategoryChanged(
+        countryCode: CountryCode.id, categoryType: CategoryType.business));
     _tabController =
         TabController(length: CategoryType.values.length, vsync: this);
   }
@@ -33,39 +35,31 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider<NewsCategoryBloc>(
-      create: (_) =>
-          NewsCategoryBloc(newsRepository: context.read<NewsRepository>())
-            ..add(const NewsCategoryChanged(
-                countryCode: CountryCode.id,
-                categoryType: CategoryType.business)),
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            icon: const Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          icon: const Icon(
+            Icons.menu,
           ),
-          elevation: 0,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BuildLabel(textTheme: textTheme),
-              const SearchBar(),
-              CustomTabBar(tabController: _tabController, textTheme: textTheme),
-              TabBarViewContent(
-                tabController: _tabController,
-                textTheme: textTheme,
-              )
-            ],
-          ),
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BuildLabel(textTheme: textTheme),
+            const SearchBar(),
+            CustomTabBar(tabController: _tabController, textTheme: textTheme),
+            TabBarViewContent(
+              tabController: _tabController,
+              textTheme: textTheme,
+            )
+          ],
         ),
       ),
     );
