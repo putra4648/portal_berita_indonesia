@@ -25,6 +25,22 @@ class BreakingNewsBloc extends Bloc<BreakingNewsEvent, BreakingNewsState> {
           emit(
               state.copyWith(isLoading: !state.isLoading, error: e.toString()));
         }
+      } else if (event is BreakingNewsRefresh) {
+        emit(state.copyWith(isLoading: true));
+        try {
+          final _breakingNewsResult = await _newsRepository.getTopHeadlineNews(
+              countryCode: CountryCode.id);
+          if (_breakingNewsResult != null) {
+            emit(state.copyWith(
+                isLoading: !state.isLoading,
+                breakingNewsArticles: List<Article>.from(_breakingNewsResult)));
+          } else {
+            return;
+          }
+        } catch (e) {
+          emit(
+              state.copyWith(isLoading: !state.isLoading, error: e.toString()));
+        }
       }
     });
   }

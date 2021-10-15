@@ -96,6 +96,7 @@ class Article extends Equatable {
 class Source extends Equatable {
   /// Constructor
   const Source({
+    this.id,
     this.name,
   });
 
@@ -106,6 +107,7 @@ class Source extends Equatable {
   /// Converting mapping to this class
   factory Source.fromMap(Map<String, Object?> map) {
     return Source(
+      id: map['id'] as String?,
       name: map['name'] as String?,
     );
   }
@@ -113,9 +115,13 @@ class Source extends Equatable {
   /// Name of source
   final String? name;
 
+  /// Id of source
+  final String? id;
+
   /// Mapping class to map
   Map<String, Object?> toMap() {
     return {
+      'id': id,
       'name': name,
     };
   }
@@ -124,5 +130,5 @@ class Source extends Equatable {
   String toJson() => json.encode(toMap());
 
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, id];
 }

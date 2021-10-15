@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
-import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
+import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
 
 class CustomTabBar extends StatelessWidget {
   const CustomTabBar({

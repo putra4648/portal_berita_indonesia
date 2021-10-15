@@ -20,14 +20,20 @@ abstract class NewsTopHeadlines<T extends Article> {
 
 /// An interface to make request about News with
 /// search function
-abstract class NewsSearchHealines<T extends Article> {
+abstract class NewsSearchHeadlines<T extends Article> {
   /// Return searchNews from Future with [args]
   Future<List<T>?> getSearchNews(String args);
 }
 
+/// An interface to make request News by Source
+abstract class NewsSearchHeadlinesBySource<T extends Article> {
+  /// Return searchNewsBySource from Future with [sourceName]
+  Future<List<T>?> getSearchNewsBySource(String sourceName);
+}
+
 /// Base class to implement News intefaces
 class NewsInterface extends HttpClientInterface
-    implements NewsTopHeadlines<Article>, NewsSearchHealines<Article> {
+    implements NewsTopHeadlines<Article>, NewsSearchHeadlines<Article> {
   /// {@macro} news_interface
   NewsInterface()
       : super(

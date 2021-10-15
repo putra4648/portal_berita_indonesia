@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
@@ -14,7 +16,8 @@ class BreakingNewsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,7 +85,7 @@ class NewsContent extends StatelessWidget {
                   builder: (context) {
                     return Detail(
                       article: _filteredBreakingNews[index],
-                      page: index++,
+                      page: index + 5,
                     );
                   },
                 ),
@@ -99,7 +102,7 @@ class NewsContent extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30),
                         image: _filteredBreakingNews[index].urlImage != null
                             ? DecorationImage(
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                                 image: NetworkImage(
                                     _filteredBreakingNews[index].urlImage!),
                               )

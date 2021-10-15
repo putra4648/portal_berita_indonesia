@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
-import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
-import 'package:portal_berita_indonesia/search/widgets/content.dart';
-import 'package:portal_berita_indonesia/search/widgets/custom_tab_bar.dart';
+import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
+import 'package:portal_berita_indonesia/category/category.dart';
 import 'package:portal_berita_indonesia/search/widgets/label.dart';
 import 'package:portal_berita_indonesia/search/widgets/search_bar.dart';
 
@@ -15,20 +14,15 @@ class Search extends StatefulWidget {
 }
 
 class SearchState extends State<Search> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
     context.read<NewsCategoryBloc>().add(const NewsCategoryChanged(
         countryCode: CountryCode.id, categoryType: CategoryType.business));
-    _tabController =
-        TabController(length: CategoryType.values.length, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -54,11 +48,7 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
           children: [
             BuildLabel(textTheme: textTheme),
             const SearchBar(),
-            CustomTabBar(tabController: _tabController, textTheme: textTheme),
-            TabBarViewContent(
-              tabController: _tabController,
-              textTheme: textTheme,
-            )
+            const Category()
           ],
         ),
       ),

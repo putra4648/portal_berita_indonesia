@@ -5,10 +5,9 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/app/app.dart';
 import 'package:portal_berita_indonesia/bootstrap.dart';
 
 void main() {
-  bootstrap(() => App(newsRepository: NewsRepository()));
+  bootstrap(() => const App());
 }

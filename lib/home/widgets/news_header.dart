@@ -16,7 +16,9 @@ class BreakingNewsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height:
+          MediaQuery.of(context).size.height * 0.5 - kBottomNavigationBarHeight,
       child: BlocBuilder<BreakingNewsBloc, BreakingNewsState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
@@ -62,7 +64,7 @@ class NewsHeaderContent extends StatelessWidget {
         ),
         image: _filterSingleBreakingNews.urlImage != null
             ? DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 colorFilter:
                     const ColorFilter.mode(Colors.white12, BlendMode.lighten),
                 image: NetworkImage(_filterSingleBreakingNews.urlImage!),
