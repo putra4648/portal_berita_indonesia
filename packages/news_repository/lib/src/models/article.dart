@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-/// A class Article will be used as model
-/// to decode JSON to this class
+/// A base class Article 
 class Article extends Equatable {
-  /// Constructor
+  /// Constructor with optional params with nullable value
   const Article({
     this.source,
     this.author,
@@ -17,7 +16,8 @@ class Article extends Equatable {
     this.content,
   });
 
-  /// Function will convert JSON map
+  /// Mapping JSON 
+  /// return [Article]
   factory Article.fromMap(Map<String, dynamic> map) {
     return Article(
       source: Source.fromMap(map['source'] as Map<String, Object?>),
@@ -30,8 +30,9 @@ class Article extends Equatable {
       content: map['content'] as String?,
     );
   }
-
-  /// Converting json to this class
+  /// Convenience way to convert JSON object to this class
+  /// Converting json to this class within fromMap function
+  /// return [Article] 
   factory Article.fromJson(String source) =>
       Article.fromMap(json.decode(source) as Map<String, dynamic>);
 
@@ -41,23 +42,22 @@ class Article extends Equatable {
   /// Author of this article
   final String? author;
 
-  /// Title of this article
+  /// Title of article
   final String? title;
 
-  /// Description of this article
+  /// Description of article
   final String? description;
 
-  /// Link url of this article
+  /// Link url of article
   final String? url;
 
-  /// Image url of this article
+  /// Image url of article
   final String? urlImage;
 
-  /// Date of this article published with ISO8601
+  /// Date of this article published with ISO8601 format
   final String? publishedAt;
 
-  /// Conten of this article
-  /// but still a characters length existed
+  /// Content of this article truncated 200 characters length
   final String? content;
 
   @override
@@ -74,10 +74,13 @@ class Article extends Equatable {
     ];
   }
 
-  /// Override this class to json string
+  /// Convenience way to send data with JSON object
+  /// Encoded JSON map from [toMap()] function
+  /// return [String] 
   String toJson() => json.encode(toMap());
 
-  /// Mapping class to saved database
+  /// Mapping this class property to map and will be encoded
+  /// return [Map<String, Object?>] 
   Map<String, Object?> toMap() {
     return {
       'source': source?.toMap(),
@@ -92,19 +95,22 @@ class Article extends Equatable {
   }
 }
 
-/// Sub-class Article for Source
+/// Base class Source 
 class Source extends Equatable {
-  /// Constructor
+  /// Constructor with optional params with nullable value
   const Source({
     this.id,
     this.name,
   });
 
-  /// Converting json from mapping
+  /// Convenience way to convert JSON object to this class
+  /// Converting json to this class within fromMap function 
+  /// return [Source]
   factory Source.fromJson(String source) =>
       Source.fromMap(json.decode(source) as Map<String, Object?>);
 
-  /// Converting mapping to this class
+  /// Mapping [fromMap()] function
+  /// return [Source] 
   factory Source.fromMap(Map<String, Object?> map) {
     return Source(
       id: map['id'] as String?,
@@ -116,19 +122,22 @@ class Source extends Equatable {
   final String? name;
 
   /// Id of source
-  final String? id;
+  final String? id
+  
+  @override
+  List<Object?> get props => [name, id];
 
-  /// Mapping class to map
+  /// Convenience way to send data with JSON object
+  /// Encode json from [toMap()] 
+  /// return [String]
+  String toJson() => json.encode(toMap());
+
+  /// Mapping this class property to map and will be encoded
+  /// return [Map<String, Object?>]
   Map<String, Object?> toMap() {
     return {
       'id': id,
       'name': name,
     };
   }
-
-  /// Override json to string
-  String toJson() => json.encode(toMap());
-
-  @override
-  List<Object?> get props => [name, id];
 }
