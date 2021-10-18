@@ -8,3 +8,5 @@ abstract class BreakingNewsEvent extends Equatable {
 }
 
 class BreakingNewsFetched extends BreakingNewsEvent {}
+
+class BreakingNewsRefresh extends BreakingNewsEvent {}

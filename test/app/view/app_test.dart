@@ -9,7 +9,7 @@ void main() {
       newsRepository = NewsRepository();
     });
     testWidgets('find title name "Portal Berita Indonesia" ', (tester) async {
-      await tester.pumpWidget(App(newsRepository: newsRepository));
+      await tester.pumpWidget(const App());
       final findBodyText = find.text('Portal Berita Indonesia');
 
       expect(findBodyText, findsOneWidget);

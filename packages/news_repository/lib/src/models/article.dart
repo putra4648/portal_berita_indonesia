@@ -99,6 +99,7 @@ class Article extends Equatable {
 class Source extends Equatable {
   /// Constructor with optional params with nullable value
   const Source({
+    this.id,
     this.name,
   });
 
@@ -112,6 +113,7 @@ class Source extends Equatable {
   /// return [Source] 
   factory Source.fromMap(Map<String, Object?> map) {
     return Source(
+      id: map['id'] as String?,
       name: map['name'] as String?,
     );
   }
@@ -119,8 +121,11 @@ class Source extends Equatable {
   /// Name of source
   final String? name;
 
+  /// Id of source
+  final String? id
+  
   @override
-  List<Object?> get props => [name];
+  List<Object?> get props => [name, id];
 
   /// Convenience way to send data with JSON object
   /// Encode json from [toMap()] 
@@ -131,6 +136,7 @@ class Source extends Equatable {
   /// return [Map<String, Object?>]
   Map<String, Object?> toMap() {
     return {
+      'id': id,
       'name': name,
     };
   }

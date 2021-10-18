@@ -9,22 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:news_repository/news_repository.dart';
+import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
 import 'package:portal_berita_indonesia/detail/bloc/recommendation_news_bloc.dart';
+import 'package:portal_berita_indonesia/detail/view/detail.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
 import 'package:portal_berita_indonesia/home/home.dart';
+import 'package:portal_berita_indonesia/injection_container.dart';
 import 'package:portal_berita_indonesia/l10n/l10n.dart';
 import 'package:portal_berita_indonesia/saved/bloc/saved_news_bloc.dart';
 import 'package:portal_berita_indonesia/saved/saved.dart';
-import 'package:portal_berita_indonesia/search/bloc/news_category_bloc.dart';
 import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 import 'package:portal_berita_indonesia/search/search.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key, required NewsRepository newsRepository})
-      : _newsRepository = newsRepository,
-        super(key: key);
-
-  final NewsRepository _newsRepository;
+  const App({Key? key}) : super(key: key);
 
   @override
   State<App> createState() => _AppState();
@@ -36,35 +34,34 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<NewsRepository>(
-      lazy: false,
-      create: (_) => widget._newsRepository,
+      create: (_) => services<NewsRepository>(),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) =>
-                BreakingNewsBloc(newsRepository: widget._newsRepository)
-                  ..add(BreakingNewsFetched()),
+            create: (_) => services<BreakingNewsBloc>(),
           ),
           BlocProvider(
-            create: (_) => SavedNewsBloc()..add(SavedNewsLoaded()),
+            create: (_) => services<SavedNewsBloc>(),
           ),
           BlocProvider(
-            create: (_) =>
-                NewsCategoryBloc(newsRepository: widget._newsRepository),
+            create: (_) => services<NewsCategoryBloc>(),
           ),
           BlocProvider(
-            create: (_) =>
-                SearchNewsBloc(newsRepository: widget._newsRepository),
+            create: (_) => services<SearchNewsBloc>(),
           ),
           BlocProvider(
-            create: (_) =>
-                RecommendationNewsBloc(newsRepository: widget._newsRepository),
+            create: (_) => services<RecommendationNewsBloc>(),
           ),
         ],
         child: MaterialApp(
           title: 'Portal Berita',
           darkTheme: ThemeData.dark(),
           theme: ThemeData.light(),
+          onGenerateRoute: (settings) {
+            if (settings.name == Detail.route) {
+              final args = settings.arguments;
+            }
+          },
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

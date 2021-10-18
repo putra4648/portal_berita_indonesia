@@ -8,15 +8,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:news_repository/news_repository.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:portal_berita_indonesia/app/app.dart';
 import 'package:portal_berita_indonesia/bootstrap.dart';
+import 'package:portal_berita_indonesia/injection_container.dart' as di;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   EquatableConfig.stringify = true;
+  await di.init();
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
-  await bootstrap(() => App(newsRepository: NewsRepository()));
+  await bootstrap(() => const App());
 }

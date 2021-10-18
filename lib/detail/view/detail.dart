@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class Detail extends StatefulWidget {
   final Article article;
   final int page;
 
+  static const route = '/detail';
   @override
   State<Detail> createState() => _DetailState();
 }
@@ -36,6 +38,15 @@ class _DetailState extends State<Detail> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop(Detail(
+              article: const Article(),
+              page: widget.page + 5,
+            ));
+          },
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -88,6 +99,8 @@ class _DetailState extends State<Detail> {
               ],
             ),
           ),
+
+          /// Other News
           Container(
             margin: EdgeInsets.only(top: size.height * 0.4),
             clipBehavior: Clip.antiAlias,
@@ -97,7 +110,7 @@ class _DetailState extends State<Detail> {
                 top: Radius.circular(20),
               ),
             ),
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -116,13 +129,16 @@ class _DetailState extends State<Detail> {
                 ),
                 Text(
                   widget.article.description ?? 'Tidak ada deskripsi',
-                  style: textTheme.bodyText2,
+                  style: textTheme.bodyText1,
                 ),
                 ElevatedButton(
                   onPressed: () {},
                   child: const Text('Selengkapnya'),
                 ),
-                const Text('Berita lainnya'),
+                Text(
+                  'Berita lainnya',
+                  style: textTheme.subtitle1,
+                ),
                 Expanded(
                   child: BlocBuilder<RecommendationNewsBloc,
                       RecommendationNewsState>(
@@ -135,40 +151,40 @@ class _DetailState extends State<Detail> {
                             maxWidth: MediaQuery.of(context).size.width * 0.8,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(30),
-                              onTap: () {
-                                // Navigator.of(context).push<Widget>(
-                                //     MaterialPageRoute(builder: (context) {
-                                //   return Detail(
-                                //     article: state.recommendedArticles[index],
-                                //     page: index++,
-                                //   );
-                                // }));
+                              onTap: () async {
+                                final pagePopped = await Navigator.of(context)
+                                    .push<Widget>(MaterialPageRoute(
+                                        settings: RouteSettings(
+                                            arguments: widget.page + 5),
+                                        builder: (context) {
+                                          return Detail(
+                                            article: state
+                                                .recommendedArticles[index],
+                                            page: widget.page + 5,
+                                          );
+                                        }));
+                                debugPrint(pagePopped.toString());
                               },
                               child: Column(
                                 children: [
                                   /// News Image
                                   Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(15),
-                                      child: Ink(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          image:
-                                              state.recommendedArticles[index]
-                                                          .urlImage !=
-                                                      null
-                                                  ? DecorationImage(
-                                                      fit: BoxFit.fill,
-                                                      image: NetworkImage(state
-                                                          .recommendedArticles[
-                                                              index]
-                                                          .urlImage!),
-                                                    )
-                                                  : null,
-                                        ),
-                                        width: double.infinity,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        image: state.recommendedArticles[index]
+                                                    .urlImage !=
+                                                null
+                                            ? DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(state
+                                                    .recommendedArticles[index]
+                                                    .urlImage!),
+                                              )
+                                            : null,
                                       ),
+                                      width: double.infinity,
                                     ),
                                   ),
 
