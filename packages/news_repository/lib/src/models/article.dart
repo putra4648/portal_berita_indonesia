@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-/// A base class Article 
+/// A base class Article
 class Article extends Equatable {
   /// Constructor with optional params with nullable value
   const Article({
@@ -16,7 +16,7 @@ class Article extends Equatable {
     this.content,
   });
 
-  /// Mapping JSON 
+  /// Mapping JSON
   /// return [Article]
   factory Article.fromMap(Map<String, dynamic> map) {
     return Article(
@@ -30,9 +30,10 @@ class Article extends Equatable {
       content: map['content'] as String?,
     );
   }
+
   /// Convenience way to convert JSON object to this class
   /// Converting json to this class within fromMap function
-  /// return [Article] 
+  /// return [Article]
   factory Article.fromJson(String source) =>
       Article.fromMap(json.decode(source) as Map<String, dynamic>);
 
@@ -76,11 +77,11 @@ class Article extends Equatable {
 
   /// Convenience way to send data with JSON object
   /// Encoded JSON map from [toMap()] function
-  /// return [String] 
+  /// return [String]
   String toJson() => json.encode(toMap());
 
   /// Mapping this class property to map and will be encoded
-  /// return [Map<String, Object?>] 
+  /// return [Map<String, Object?>]
   Map<String, Object?> toMap() {
     return {
       'source': source?.toMap(),
@@ -95,7 +96,7 @@ class Article extends Equatable {
   }
 }
 
-/// Base class Source 
+/// Base class Source
 class Source extends Equatable {
   /// Constructor with optional params with nullable value
   const Source({
@@ -104,13 +105,13 @@ class Source extends Equatable {
   });
 
   /// Convenience way to convert JSON object to this class
-  /// Converting json to this class within fromMap function 
+  /// Converting json to this class within fromMap function
   /// return [Source]
   factory Source.fromJson(String source) =>
       Source.fromMap(json.decode(source) as Map<String, Object?>);
 
   /// Mapping [fromMap()] function
-  /// return [Source] 
+  /// return [Source]
   factory Source.fromMap(Map<String, Object?> map) {
     return Source(
       id: map['id'] as String?,
@@ -122,13 +123,13 @@ class Source extends Equatable {
   final String? name;
 
   /// Id of source
-  final String? id
-  
+  final String? id;
+
   @override
   List<Object?> get props => [name, id];
 
   /// Convenience way to send data with JSON object
-  /// Encode json from [toMap()] 
+  /// Encode json from [toMap()]
   /// return [String]
   String toJson() => json.encode(toMap());
 
