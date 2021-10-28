@@ -58,9 +58,7 @@ class _AppState extends State<App> {
           darkTheme: ThemeData.dark(),
           theme: ThemeData.light(),
           onGenerateRoute: (settings) {
-            if (settings.name == Detail.route) {
-              final args = settings.arguments;
-            }
+            if (settings.name == Detail.route) {}
           },
           localizationsDelegates: const [
             AppLocalizations.delegate,
@@ -80,26 +78,21 @@ class _AppState extends State<App> {
                 ],
               ),
             ),
-            bottomNavigationBar: Builder(
-              builder: (context) {
-                return BottomNavigationBar(
-                  currentIndex: currentIndex,
-                  onTap: (index) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  items: const [
-                    BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.search), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.bookmark_border), label: ''),
-                  ],
-                );
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: currentIndex,
+              onTap: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
               },
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+                BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.bookmark_border), label: ''),
+              ],
             ),
             body: [
               const Home(),
