@@ -16,27 +16,23 @@ class CustomTabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return TabBar(
-        controller: _tabController,
-        isScrollable: true,
-        indicatorColor: Colors.black,
-        labelStyle: textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
-        physics: const BouncingScrollPhysics(),
-        tabs: CategoryType.values
-            .map((category) => Tab(
-                  child: Text(
-                      mappingCategoryToString(category)[0].toUpperCase() +
-                          mappingCategoryToString(category).substring(1)),
-                ))
-            .toList(),
-        onTap: (index) {
-          context.read<NewsCategoryBloc>().add(NewsCategoryChanged(
-              countryCode: CountryCode.id,
-              categoryType: CategoryType.values[index]));
-          debugPrint(mappingCategoryToString(CategoryType.values[index]));
-        },
-      );
-    });
+    return TabBar(
+      controller: _tabController,
+      isScrollable: true,
+      indicatorColor: Colors.black,
+      labelStyle: textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
+      physics: const BouncingScrollPhysics(),
+      tabs: CategoryType.values
+          .map((category) => Tab(
+                child: Text(mappingCategoryToString(category)[0].toUpperCase() +
+                    mappingCategoryToString(category).substring(1)),
+              ))
+          .toList(),
+      onTap: (index) {
+        context.read<NewsCategoryBloc>().add(NewsCategoryChanged(
+            countryCode: CountryCode.id,
+            categoryType: CategoryType.values[index]));
+      },
+    );
   }
 }

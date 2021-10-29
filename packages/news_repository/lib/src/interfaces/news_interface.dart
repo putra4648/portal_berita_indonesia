@@ -35,19 +35,20 @@ abstract class NewsSearchHeadlinesBySource<T extends Article> {
 class NewsInterface extends HttpClientInterface
     implements NewsTopHeadlines<Article>, NewsSearchHeadlines<Article> {
   /// {@macro} news_interface
-  NewsInterface()
+  NewsInterface({required this.apiKey})
       : super(
           dio: Dio(
             BaseOptions(
               contentType: 'application/json',
               baseUrl: 'https://newsapi.org/v2',
-              headers: <String, String>{
-                'authorization': '5ac515632a9c44629f5309f361c5aeaf'
-              },
+              headers: <String, String>{'authorization': apiKey},
             ),
           ),
           cookieJar: CookieJar(),
         );
+
+  /// Provide APIKEY
+  final String apiKey;
 
   @override
   Future<List<Article>?> getSearchNews(String args) async {

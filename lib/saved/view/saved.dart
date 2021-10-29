@@ -12,10 +12,9 @@ class Saved extends StatefulWidget {
 class _SavedState extends State<Saved> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => SavedNewsBloc(),
-      child: Scaffold(
-        body: BlocBuilder<SavedNewsBloc, SavedNewsState>(
+    return Scaffold(
+      body: SafeArea(
+        child: BlocBuilder<SavedNewsBloc, SavedNewsState>(
           builder: (context, state) {
             if (state.savedArticles.isEmpty) {
               return const Center(
@@ -23,20 +22,38 @@ class _SavedState extends State<Saved> {
               );
             }
             return ListView.builder(
+              shrinkWrap: true,
               itemCount: state.savedArticles.length,
               itemBuilder: (context, index) {
                 final article = state.savedArticles[index];
-                return ListTile(
-                  title: Text(article.title ?? ''),
-                  trailing: Builder(builder: (context) {
-                    return IconButton(
-                        onPressed: () {
-                          context
-                              .read<SavedNewsBloc>()
-                              .add(SavedNewsDeleted(article: article));
-                        },
-                        icon: const Icon(Icons.delete));
-                  }),
+                return Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      if (article.urlImage != null)
+                        Image.network(
+                          article.urlImage!,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
+                      ListTile(
+                        title: Text(
+                          article.title ?? '',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            context
+                                .read<SavedNewsBloc>()
+                                .add(SavedNewsDeleted(article: article));
+                          },
+                          icon: const Icon(Icons.delete),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             );

@@ -6,7 +6,7 @@ import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
 import 'package:portal_berita_indonesia/saved/bloc/saved_news_bloc.dart';
 import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 
-final services = GetIt.I;
+final services = GetIt.instance;
 
 Future<void> init() async {
   services
@@ -21,5 +21,6 @@ Future<void> init() async {
     ..registerFactory<RecommendationNewsBloc>(
         () => RecommendationNewsBloc(newsRepository: services()))
     // External dependencies
-    ..registerLazySingleton<NewsRepository>(() => NewsRepository());
+    ..registerLazySingleton<NewsRepository>(
+        () => NewsRepository(apiKey: 'ENTER YOUR API KEY HERE'));
 }

@@ -11,7 +11,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
 import 'package:portal_berita_indonesia/detail/bloc/recommendation_news_bloc.dart';
-import 'package:portal_berita_indonesia/detail/view/detail.dart';
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
 import 'package:portal_berita_indonesia/home/home.dart';
 import 'package:portal_berita_indonesia/injection_container.dart';
@@ -57,49 +56,27 @@ class _AppState extends State<App> {
           title: 'Portal Berita',
           darkTheme: ThemeData.dark(),
           theme: ThemeData.light(),
-          onGenerateRoute: (settings) {
-            if (settings.name == Detail.route) {
-              final args = settings.arguments;
-            }
-          },
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(
-            drawer: Drawer(
-              child: ListView(
-                children: const [
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                    ),
-                    child: Text('Hello guys Radal here'),
-                  ),
-                ],
-              ),
-            ),
-            bottomNavigationBar: Builder(
-              builder: (context) {
-                return BottomNavigationBar(
-                  currentIndex: currentIndex,
-                  onTap: (index) {
-                    setState(() {
-                      currentIndex = index;
-                    });
-                  },
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  items: const [
-                    BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.search), label: ''),
-                    BottomNavigationBarItem(
-                        icon: Icon(Icons.bookmark_border), label: ''),
-                  ],
-                );
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: currentIndex,
+              onTap: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
               },
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              items: const [
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+                BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.bookmark_border), label: ''),
+              ],
             ),
             body: [
               const Home(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portal_berita_indonesia/detail/view/detail.dart';
 import 'package:portal_berita_indonesia/search/bloc/search_news_bloc.dart';
 
 class SearchBar extends StatefulWidget {
@@ -31,17 +32,14 @@ class _SearchBarState extends State<SearchBar> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextField(
         controller: _searchTextController,
-        onSubmitted: (value) {
-          context
-              .read<SearchNewsBloc>()
-              .add(SearchNewsQueryChanged(query: value));
+        onTap: () {
           showSearch<String>(
             context: context,
-            query: value,
+            query: _searchTextController.text,
             delegate: CustomSearchDelegate(context.read<SearchNewsBloc>()),
           );
         },
-        cursorColor: Colors.black,
+        readOnly: true,
         decoration: InputDecoration(
           filled: true,
           prefixIcon: const Padding(
@@ -113,9 +111,23 @@ class CustomSearchDelegate extends SearchDelegate<String> {
           return ListView.builder(
             itemCount: state.newsResults.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(state.newsResults[index].title ?? ''),
-              );
+              return state.newsResults[index].title != null
+                  ? ListTile(
+                      onTap: () {
+                        Navigator.of(context).push<Widget>(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Detail(
+                                article: state.newsResults[index],
+                                page: index + 5,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      title: Text(state.newsResults[index].title ?? ''),
+                    )
+                  : const SizedBox.shrink();
             },
           );
         } else if (state is SearchNewsFailed) {

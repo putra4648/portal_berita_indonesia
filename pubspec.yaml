@@ -21,6 +21,7 @@ dependencies:
   news_repository:
     path: packages/news_repository
   path_provider: ^2.0.5
+  url_launcher: ^6.0.12
 
 dev_dependencies:
   bloc_test: ^8.2.0

@@ -5,6 +5,7 @@ import 'package:news_repository/src/interfaces/interfaces.dart';
 /// {@endtemplate}
 class NewsRepository extends NewsInterface {
   /// {@macro} news_repository
+  NewsRepository({required String apiKey}) : super(apiKey: apiKey);
 
   // Todo : Implement Database
 }
