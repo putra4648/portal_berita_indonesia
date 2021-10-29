@@ -35,7 +35,7 @@ _\*Portal Berita Indonesia works on iOS, Android, and Web._
 
 ---
 
-## Running Tests 🧪
+<!-- ## Running Tests 🧪
 
 To run all unit and widget tests use the following command:
 
@@ -162,3 +162,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
+ -->
+ 
+ ## Preview 
+ ![Preview](https://github.com/dan4648/portal_berita_indonesia/blob/81e33a9804fac2bc95bbc4251c01176008fa588c/Portal%20Berita.png)
+ 
