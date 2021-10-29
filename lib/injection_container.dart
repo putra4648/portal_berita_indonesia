@@ -21,5 +21,6 @@ Future<void> init() async {
     ..registerFactory<RecommendationNewsBloc>(
         () => RecommendationNewsBloc(newsRepository: services()))
     // External dependencies
-    ..registerLazySingleton<NewsRepository>(() => NewsRepository());
+    ..registerLazySingleton<NewsRepository>(
+        () => NewsRepository(apiKey: 'ENTER YOUR API KEY HERE'));
 }
