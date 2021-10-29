@@ -24,12 +24,6 @@ class _HomeState extends State<Home> {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(Icons.menu),
-        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
