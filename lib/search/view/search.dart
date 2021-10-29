@@ -13,7 +13,7 @@ class Search extends StatefulWidget {
   SearchState createState() => SearchState();
 }
 
-class SearchState extends State<Search> with SingleTickerProviderStateMixin {
+class SearchState extends State<Search> {
   @override
   void initState() {
     super.initState();
@@ -30,26 +30,17 @@ class SearchState extends State<Search> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-          icon: const Icon(
-            Icons.menu,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BuildLabel(textTheme: textTheme),
+              const SearchBar(),
+              const Category()
+            ],
           ),
-        ),
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BuildLabel(textTheme: textTheme),
-            const SearchBar(),
-            const Category()
-          ],
         ),
       ),
     );
