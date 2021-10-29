@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
+import 'package:portal_berita_indonesia/detail/view/detail.dart';
 
 class TabBarViewContent extends StatelessWidget {
   const TabBarViewContent({
@@ -36,7 +37,17 @@ class TabBarViewContent extends StatelessWidget {
                       itemCount: state.categoryArticles.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push<Widget>(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Detail(
+                                      article: state.categoryArticles[index],
+                                      page: index + 5);
+                                },
+                              ),
+                            );
+                          },
                           borderRadius: BorderRadius.circular(10),
                           child: Row(
                             children: [

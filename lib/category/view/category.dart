@@ -18,14 +18,16 @@ class _CategoryState extends State<Category>
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: [
-        CustomTabBar(tabController: _tabController, textTheme: textTheme),
-        TabBarViewContent(
-          tabController: _tabController,
-          textTheme: textTheme,
-        )
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          CustomTabBar(tabController: _tabController, textTheme: textTheme),
+          TabBarViewContent(
+            tabController: _tabController,
+            textTheme: textTheme,
+          )
+        ],
+      ),
     );
   }
 }
