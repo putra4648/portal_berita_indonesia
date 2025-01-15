@@ -154,9 +154,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
     }
 }
 ``` -->
- 
+ <!--
  ## Preview 
  ![Preview](https://github.com/dan4648/portal_berita_indonesia/blob/81e33a9804fac2bc95bbc4251c01176008fa588c/Portal%20Berita.png)
+ -->
  
 <!-- [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
