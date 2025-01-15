@@ -18,6 +18,7 @@ Future<void> main() async {
   EquatableConfig.stringify = true;
   await di.init();
   HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationDocumentsDirectory());
+      storageDirectory: HydratedStorageDirectory(
+          (await getApplicationDocumentsDirectory()).path));
   await bootstrap(() => const App());
 }

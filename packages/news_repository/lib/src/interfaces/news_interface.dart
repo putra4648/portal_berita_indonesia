@@ -34,7 +34,7 @@ abstract class NewsSearchHeadlinesBySource<T extends Article> {
 /// Base class to implement News intefaces
 class NewsInterface extends HttpClientInterface
     implements NewsTopHeadlines<Article>, NewsSearchHeadlines<Article> {
-  /// {@macro} news_interface
+  /// {@macro news_interface}
   NewsInterface({required this.apiKey})
       : super(
           dio: Dio(
@@ -58,9 +58,9 @@ class NewsInterface extends HttpClientInterface
 
       final _result = List<Article>.from((_response.data!['articles'] as List)
           .cast<Map<String, dynamic>>()
-          .map<Article>((map) => Article.fromMap(map)));
+          .map<Article>(Article.fromMap));
       return _result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return null;
     }
@@ -89,9 +89,9 @@ class NewsInterface extends HttpClientInterface
           '/top-headlines?q=$keyword&category=$_category&country=$_countryCode&pageSize=$pageSize&page=$page');
       final _result = List<Article>.from((_response.data!['articles'] as List)
           .cast<Map<String, dynamic>>()
-          .map<Article>((map) => Article.fromMap(map)));
+          .map<Article>(Article.fromMap));
       return _result;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint(e.message);
       return null;
     }

@@ -23,7 +23,8 @@ class BreakingNewsContent extends StatelessWidget {
             padding: const EdgeInsets.all(15),
             child: Text(
               'Breaking News',
-              style: textTheme.headline5?.copyWith(fontWeight: FontWeight.w500),
+              style: textTheme.headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.w500),
             ),
           ),
           Expanded(
@@ -117,7 +118,7 @@ class NewsContent extends StatelessWidget {
                     _filteredBreakingNews[index].title ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.subtitle1
+                    style: textTheme.titleMedium
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                   isThreeLine: true,

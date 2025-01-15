@@ -5,7 +5,7 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 /// An interface for making Http request
 /// with logging information
 class HttpClientInterface {
-  /// {@macro} HttpClientInterface
+  /// {@macro HttpClientInterface}
   HttpClientInterface({required CookieJar cookieJar, required Dio dio})
       : _cookieJar = cookieJar,
         _dio = dio {

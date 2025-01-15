@@ -17,11 +17,12 @@ class BuildLabel extends StatelessWidget {
         children: [
           Text(
             'Temukan',
-            style: textTheme.headline3?.copyWith(fontWeight: FontWeight.bold),
+            style:
+                textTheme.displaySmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           Text(
             'Berita favoritmu di sini',
-            style: textTheme.subtitle1,
+            style: textTheme.titleMedium,
           ),
         ],
       ),

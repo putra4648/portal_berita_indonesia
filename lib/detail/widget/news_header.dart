@@ -37,7 +37,7 @@ class NewsHeader extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               article.title ?? '',
-              style: textTheme.headline5
+              style: textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
@@ -46,11 +46,11 @@ class NewsHeader extends StatelessWidget {
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(
-              primary: Colors.white,
+              foregroundColor: Colors.white,
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text('Selengkapnya'),
                 SizedBox(width: 10),
                 Icon(Icons.arrow_forward)

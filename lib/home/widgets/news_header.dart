@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
-
 import 'package:portal_berita_indonesia/home/bloc/breaking_news_bloc.dart';
 
 class BreakingNewsHeader extends StatelessWidget {
@@ -88,8 +87,12 @@ class NewsHeaderContent extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     child: Text('Berita hari ini',
-                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w500)),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500)),
                   ),
                 ),
               ),
@@ -99,7 +102,7 @@ class NewsHeaderContent extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               _filterSingleBreakingNews.title ?? '',
-              style: textTheme.headline5
+              style: textTheme.headlineSmall
                   ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
@@ -108,11 +111,11 @@ class NewsHeaderContent extends StatelessWidget {
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(
-              primary: Colors.white,
+              foregroundColor: Colors.white,
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 Text('Selengkapnya'),
                 SizedBox(width: 10),
                 Icon(Icons.arrow_forward)

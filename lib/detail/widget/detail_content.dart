@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/detail/widget/similiiar_news.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,7 +41,7 @@ class DetailContent extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
                 article.description ?? 'Tidak ada deskripsi',
-                style: textTheme.bodyText1,
+                style: textTheme.bodyLarge,
                 textWidthBasis: TextWidthBasis.longestLine,
               ),
             ),
@@ -51,7 +50,7 @@ class DetailContent extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (article.url != null) {
-                    launch(article.url!);
+                    launchUrl(Uri.parse(article.url!));
                   }
                 },
                 child: const Text('Selengkapnya'),
@@ -61,7 +60,7 @@ class DetailContent extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: Text(
                 'Berita lainnya',
-                style: textTheme.headline5,
+                style: textTheme.headlineSmall,
               ),
             ),
             SimilliarNews(page: page),
