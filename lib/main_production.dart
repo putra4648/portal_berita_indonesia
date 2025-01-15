@@ -14,6 +14,7 @@ import 'package:portal_berita_indonesia/injection_container.dart' as di;
 Future<void> main() async {
   await di.init();
   HydratedBloc.storage = await HydratedStorage.build(
-      storageDirectory: await getApplicationDocumentsDirectory());
+      storageDirectory: HydratedStorageDirectory(
+          (await getApplicationDocumentsDirectory()).path));
   await bootstrap(() => const App());
 }

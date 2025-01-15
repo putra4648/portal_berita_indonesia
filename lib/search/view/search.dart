@@ -4,7 +4,8 @@ import 'package:news_repository/news_repository.dart';
 import 'package:portal_berita_indonesia/category/bloc/news_category_bloc.dart';
 import 'package:portal_berita_indonesia/category/category.dart';
 import 'package:portal_berita_indonesia/search/widgets/label.dart';
-import 'package:portal_berita_indonesia/search/widgets/search_bar.dart';
+import 'package:portal_berita_indonesia/search/widgets/search_bar.dart'
+    as search_bar;
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class SearchState extends State<Search> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BuildLabel(textTheme: textTheme),
-              const SearchBar(),
+              const search_bar.SearchBar(),
               const Category()
             ],
           ),

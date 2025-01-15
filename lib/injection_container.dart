@@ -13,7 +13,7 @@ Future<void> init() async {
     // Blocs
     ..registerFactory<BreakingNewsBloc>(
         () => BreakingNewsBloc(newsRepository: services()))
-    ..registerFactory<SavedNewsBloc>(() => SavedNewsBloc())
+    ..registerFactory<SavedNewsBloc>(SavedNewsBloc.new)
     ..registerFactory<NewsCategoryBloc>(
         () => NewsCategoryBloc(newsRepository: services()))
     ..registerFactory<SearchNewsBloc>(

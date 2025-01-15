@@ -20,7 +20,7 @@ class CustomTabBar extends StatelessWidget {
       controller: _tabController,
       isScrollable: true,
       indicatorColor: Colors.black,
-      labelStyle: textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
+      labelStyle: textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       physics: const BouncingScrollPhysics(),
       tabs: CategoryType.values
           .map((category) => Tab(

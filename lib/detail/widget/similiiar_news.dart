@@ -66,7 +66,7 @@ class SimilliarNews extends StatelessWidget {
                           state.recommendedArticles[index].title ?? '',
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.subtitle1
+                          style: textTheme.titleMedium
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         isThreeLine: true,

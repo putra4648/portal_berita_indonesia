@@ -10,7 +10,7 @@ class SavedNewsState extends Equatable {
       savedArticles: map['savedArticles'] != null
           ? List<Article>.from((map['savedArticles'] as List)
               .cast<Map<String, dynamic>>()
-              .map<Article>((x) => Article.fromMap(x)))
+              .map<Article>(Article.fromMap))
           : [],
     );
   }

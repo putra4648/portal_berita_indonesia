@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_repository/news_repository.dart';
@@ -78,7 +77,7 @@ class TabBarViewContent extends StatelessWidget {
                                       state.categoryArticles[index].title ?? '',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: textTheme.subtitle1?.copyWith(
+                                      style: textTheme.titleMedium?.copyWith(
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -90,7 +89,7 @@ class TabBarViewContent extends StatelessWidget {
                                         durationTimer(state
                                             .categoryArticles[index]
                                             .publishedAt),
-                                        style: textTheme.caption,
+                                        style: textTheme.bodySmall,
                                       ),
                                     )
                                   ],
