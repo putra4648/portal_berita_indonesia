@@ -6,7 +6,7 @@ part 'headline_param.g.dart';
 /// Headline param
 @JsonSerializable()
 class HeadlineParam extends BaseParam {
-  /// {macro constructor}
+  /// {@macro constructor}
   const HeadlineParam({
     this.headlinesPerCategory,
     this.includeSimilar,

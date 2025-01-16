@@ -12,7 +12,7 @@ enum SearchField {
   /// main_text
   mainText('main_text');
 
-  /// {macro search_field}
+  /// {@macro search_field}
   const SearchField(this.value);
 
   /// Enum actual value
