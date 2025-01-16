@@ -7,10 +7,7 @@ part of 'headline_param.dart';
 // **************************************************************************
 
 HeadlineParam _$HeadlineParamFromJson(Map<String, dynamic> json) =>
-    HeadlineParam(
-      headlinesPerCategory: json['headlines_per_category'] as String,
-      includeSimilar: json['include_similar'] as bool,
-    )
+    HeadlineParam()
       ..sort = json['sort'] as String?
       ..limit = (json['limit'] as num?)?.toInt()
       ..page = (json['page'] as num?)?.toInt()
@@ -24,7 +21,9 @@ HeadlineParam _$HeadlineParamFromJson(Map<String, dynamic> json) =>
       ..language = json['language'] as String?
       ..publishedBefore = json['published_before'] as String?
       ..publishedAfter = json['published_after'] as String?
-      ..publishedOn = json['published_on'] as String?;
+      ..publishedOn = json['published_on'] as String?
+      ..headlinesPerCategory = json['headlines_per_category'] as String?
+      ..includeSimilar = json['include_similar'] as bool?;
 
 Map<String, dynamic> _$HeadlineParamToJson(HeadlineParam instance) =>
     <String, dynamic>{

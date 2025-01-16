@@ -7,6 +7,13 @@ part 'base_param.g.dart';
 /// default to nullable
 @JsonSerializable()
 class BaseParam extends PaginationParam {
+  /// Default constructor
+  BaseParam();
+
+  /// Parse JSON to object class
+  factory BaseParam.fromJson(Map<String, dynamic> json) =>
+      _$BaseParamFromJson(json);
+
   /// user locale location, default is ALL
   String? locale;
 

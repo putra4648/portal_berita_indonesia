@@ -7,18 +7,19 @@ part 'headline_param.g.dart';
 @JsonSerializable()
 class HeadlineParam extends BaseParam {
   /// {macro constructor}
-  HeadlineParam({
-    required this.headlinesPerCategory,
-    required this.includeSimilar,
-  });
+  HeadlineParam();
+  
+  /// Convert JSON to object class
+  factory HeadlineParam.fromJson(Map<String, dynamic> json) =>
+      _$HeadlineParamFromJson(json);
 
   /// number of article, max is 10 and default is 6
   @JsonKey(name: 'headlines_per_category')
-  final String headlinesPerCategory;
+  String? headlinesPerCategory;
 
   /// include similar article or not, default is true
   @JsonKey(name: 'include_similar')
-  final bool includeSimilar;
+  bool? includeSimilar;
 
   /// Convert this class to JSON object
   @override

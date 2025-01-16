@@ -5,6 +5,13 @@ part 'pagination_param.g.dart';
 /// Pagination param
 @JsonSerializable()
 class PaginationParam {
+  /// {@macro constructor}
+  PaginationParam();
+
+  /// Parse JSON to object class
+  factory PaginationParam.fromJson(Map<String, dynamic> json) =>
+      _$PaginationParamFromJson(json);
+
   /// sort from parameter key
   String? sort;
 
