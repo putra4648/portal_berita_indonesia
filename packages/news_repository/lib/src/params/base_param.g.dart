@@ -6,21 +6,24 @@ part of 'base_param.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseParam _$BaseParamFromJson(Map<String, dynamic> json) => BaseParam()
-  ..sort = json['sort'] as String?
-  ..limit = (json['limit'] as num?)?.toInt()
-  ..page = (json['page'] as num?)?.toInt()
-  ..locale = json['locale'] as String?
-  ..domains = json['domains'] as String?
-  ..excludeDomains = json['exclude_domains'] as String?
-  ..sourceIds = json['source_ids'] as String?
-  ..excludeSourceIds = json['exclude_source_ids'] as String?
-  ..categories = json['categories'] as String?
-  ..excludeCategories = json['exclude_categories'] as String?
-  ..language = json['language'] as String?
-  ..publishedBefore = json['published_before'] as String?
-  ..publishedAfter = json['published_after'] as String?
-  ..publishedOn = json['published_on'] as String?;
+BaseParam _$BaseParamFromJson(Map<String, dynamic> json) => BaseParam(
+      locale: json['locale'] as String?,
+      domains: json['domains'] as String?,
+      excludeDomains: json['exclude_domains'] as String?,
+      sourceIds: json['source_ids'] as String?,
+      excludeSourceIds: json['exclude_source_ids'] as String?,
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      excludeCategories: json['exclude_categories'] as String?,
+      language: json['language'] as String?,
+      publishedBefore: json['published_before'] as String?,
+      publishedAfter: json['published_after'] as String?,
+      publishedOn: json['published_on'] as String?,
+      sort: json['sort'] as String?,
+      limit: (json['limit'] as num?)?.toInt(),
+      page: (json['page'] as num?)?.toInt(),
+    );
 
 Map<String, dynamic> _$BaseParamToJson(BaseParam instance) => <String, dynamic>{
       'sort': instance.sort,

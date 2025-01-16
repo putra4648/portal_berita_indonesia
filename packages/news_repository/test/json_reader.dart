@@ -1,8 +1,8 @@
 import 'dart:io';
 
 class JsonReader {
-  static String read() {
-    final jsonPath = '${Directory.current.path}/test/response.json';
+  static String read(String filename) {
+    final jsonPath = '${Directory.current.path}/test/$filename.json';
     return File(jsonPath).readAsStringSync();
   }
 }

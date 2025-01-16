@@ -1,26 +1,34 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'pagination_param.g.dart';
 
 /// Pagination param
 @JsonSerializable()
-class PaginationParam {
+class PaginationParam extends Equatable {
   /// {@macro constructor}
-  PaginationParam();
+  const PaginationParam({
+    this.sort,
+    this.limit,
+    this.page,
+  });
 
   /// Parse JSON to object class
   factory PaginationParam.fromJson(Map<String, dynamic> json) =>
       _$PaginationParamFromJson(json);
 
   /// sort from parameter key
-  String? sort;
+  final String? sort;
 
   /// based on API plan
-  int? limit;
+  final int? limit;
 
   /// page to get, default is 1
-  int? page;
+  final int? page;
 
   /// Convert this class to JSON object
   Map<String, dynamic> toJson() => _$PaginationParamToJson(this);
+
+  @override
+  List<Object?> get props => [sort, limit, page];
 }

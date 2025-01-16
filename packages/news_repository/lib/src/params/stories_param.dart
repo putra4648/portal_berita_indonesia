@@ -7,7 +7,24 @@ part 'stories_param.g.dart';
 @JsonSerializable()
 class StoriesParam extends BaseParam {
   /// {@macro constructor}
-  StoriesParam();
+  const StoriesParam({
+    this.search,
+    this.searchFields,
+    super.locale,
+    super.domains,
+    super.excludeDomains,
+    super.sourceIds,
+    super.excludeSourceIds,
+    super.categories,
+    super.excludeCategories,
+    super.language,
+    super.publishedBefore,
+    super.publishedAfter,
+    super.publishedOn,
+    super.sort,
+    super.limit,
+    super.page,
+  });
 
   /// Parse JSON to object class
   factory StoriesParam.fromJson(Map<String, dynamic> json) =>
@@ -20,13 +37,17 @@ class StoriesParam extends BaseParam {
   /// + wraps a number of tokens to signify a phrase for searching use "
   /// + at the end of a term signifies a prefix query use *
   /// + signify precedence use ( and )
-  String? search;
+  final String? search;
 
   /// search field, comma separated
   @JsonKey(name: 'search_fields')
-  String? searchFields;
+  final String? searchFields;
 
   /// Convert this class to JSON object
   @override
   Map<String, dynamic> toJson() => _$StoriesParamToJson(this);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [search, searchFields];
 }

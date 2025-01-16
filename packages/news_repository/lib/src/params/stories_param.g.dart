@@ -6,23 +6,26 @@ part of 'stories_param.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StoriesParam _$StoriesParamFromJson(Map<String, dynamic> json) => StoriesParam()
-  ..sort = json['sort'] as String?
-  ..limit = (json['limit'] as num?)?.toInt()
-  ..page = (json['page'] as num?)?.toInt()
-  ..locale = json['locale'] as String?
-  ..domains = json['domains'] as String?
-  ..excludeDomains = json['exclude_domains'] as String?
-  ..sourceIds = json['source_ids'] as String?
-  ..excludeSourceIds = json['exclude_source_ids'] as String?
-  ..categories = json['categories'] as String?
-  ..excludeCategories = json['exclude_categories'] as String?
-  ..language = json['language'] as String?
-  ..publishedBefore = json['published_before'] as String?
-  ..publishedAfter = json['published_after'] as String?
-  ..publishedOn = json['published_on'] as String?
-  ..search = json['search'] as String?
-  ..searchFields = json['search_fields'] as String?;
+StoriesParam _$StoriesParamFromJson(Map<String, dynamic> json) => StoriesParam(
+      search: json['search'] as String?,
+      searchFields: json['search_fields'] as String?,
+      locale: json['locale'] as String?,
+      domains: json['domains'] as String?,
+      excludeDomains: json['exclude_domains'] as String?,
+      sourceIds: json['source_ids'] as String?,
+      excludeSourceIds: json['exclude_source_ids'] as String?,
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      excludeCategories: json['exclude_categories'] as String?,
+      language: json['language'] as String?,
+      publishedBefore: json['published_before'] as String?,
+      publishedAfter: json['published_after'] as String?,
+      publishedOn: json['published_on'] as String?,
+      sort: json['sort'] as String?,
+      limit: (json['limit'] as num?)?.toInt(),
+      page: (json['page'] as num?)?.toInt(),
+    );
 
 Map<String, dynamic> _$StoriesParamToJson(StoriesParam instance) =>
     <String, dynamic>{

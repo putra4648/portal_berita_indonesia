@@ -7,10 +7,11 @@ part of 'pagination_param.dart';
 // **************************************************************************
 
 PaginationParam _$PaginationParamFromJson(Map<String, dynamic> json) =>
-    PaginationParam()
-      ..sort = json['sort'] as String?
-      ..limit = (json['limit'] as num?)?.toInt()
-      ..page = (json['page'] as num?)?.toInt();
+    PaginationParam(
+      sort: json['sort'] as String?,
+      limit: (json['limit'] as num?)?.toInt(),
+      page: (json['page'] as num?)?.toInt(),
+    );
 
 Map<String, dynamic> _$PaginationParamToJson(PaginationParam instance) =>
     <String, dynamic>{
