@@ -9,10 +9,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:portal_berita_indonesia/app/app.dart';
 import 'package:portal_berita_indonesia/bootstrap.dart';
-import 'package:portal_berita_indonesia/injection_container.dart' as di;
 
 Future<void> main() async {
-  await di.init();
+  // await di.init();
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: HydratedStorageDirectory(
           (await getApplicationDocumentsDirectory()).path));
